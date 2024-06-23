@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -31,7 +32,7 @@ class PostController extends Controller
 
     public function store()
     {
-        request()->validate(["body" => ["required"]]);
+        request()->validate(["body" => ["required", "min:10"]]);
 
         Post::create([
             "body" => request("body"),
@@ -42,7 +43,11 @@ class PostController extends Controller
     }
     public function update(Post $post)
     {
-        request()->validate(["body" => ["required"]]);
+        request()->validate(["body" => ["required", "min:10"]]);
+
+        if ($post->body === request("body")) {
+            throw ValidationException::withMessages(["body" => "No changes made"]);
+        }
 
         $post->updateOrFail([
             "body" => request("body"),

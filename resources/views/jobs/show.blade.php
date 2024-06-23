@@ -7,7 +7,9 @@
                 <h2 class="font-bold text-2xl">{{ $job->title }}</h2>
                 <p class="text-lg">{{ $job->salary }}</p>
             </div>
-            <a href="/jobs/{{ $job->id }}/edit" class="self-start border border-blue-900 rounded-md py-2 px-4">Edit</a>
+            @can("edit", $job)
+                <a href="/jobs/{{ $job->id }}/edit" class="self-start border border-blue-900 rounded-md py-2 px-4">Edit</a>
+            @endcan
         </div>
 
     @else

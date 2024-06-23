@@ -41,7 +41,12 @@
                     <p class="text-sm text-red-500 italic mt-1">{{ $message }}</p>
                 @enderror
 
+                @error('root')
+                    <p class="text-sm text-red-500 italic mt-1">{{ $message }}</p>
+                @enderror
+
               </div>
+
 
             </div>
           </div>
